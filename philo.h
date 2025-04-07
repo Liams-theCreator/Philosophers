@@ -33,10 +33,6 @@ typedef struct s_philo
     pthread_mutex_t *right_fork;
     long            last_eat_time;
     int             times_eaten;
-    t_config        *config;
 }   t_philo;
-
-int   parse_arguments(int argc, char **argv, t_config *config);
-void  *philosopher_routine(void *arg);
 
 #endif
