@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:40:17 by imellali          #+#    #+#             */
-/*   Updated: 2025/04/04 16:45:14 by imellali         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:21:24 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,5 @@ typedef struct s_config
     int time_to_eat;
     int time_to_sleep;
 }   t_config;
-
-typedef struct s_philo
-{
-    int             id;
-    pthread_mutex_t *left_fork;
-    pthread_mutex_t *right_fork;
-    long            last_eat_time;
-    int             times_eaten;
-}   t_philo;
 
 #endif
