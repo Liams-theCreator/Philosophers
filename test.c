@@ -35,21 +35,21 @@ int	main(int argc, char **argv)
 	printf("Time to eat: %d ms\n", data.config.time_to_eat);
 	printf("Time to sleep: %d ms\n", data.config.time_to_sleep);
 	if (data.config.must_eat_flag)
-		printf("Meals required per philosopher: %d\n", data.config.must_eat_count);
+		printf("Meals required per philosopher: %d\n",
+			data.config.must_eat_count);
 	else
 		printf("Meals required per philosopher: unlimited\n");
 	printf("Simulation start time: %ld ms\n", data.start_time_ms);
 	printf("Stop flag: %d\n", data.stop_sim);
-
 	i = 0;
 	while (i < data.config.num_philos)
 	{
 		printf("Philo %d:\n", data.philos[i].id);
-		printf("  Address:        %p\n", (void*)&data.philos[i]);
+		printf("  Address:        %p\n", (void *)&data.philos[i]);
 		printf("  Meals eaten:    %d\n", data.philos[i].meals_eaten);
 		printf("  Last meal:      %ld ms\n", data.philos[i].last_meal_ms);
-		printf("  Left fork:      %p\n", (void*)data.philos[i].left_fork);
-		printf("  Right fork:     %p\n", (void*)data.philos[i].right_fork);
+		printf("  Left fork:      %p\n", (void *)data.philos[i].left_fork);
+		printf("  Right fork:     %p\n", (void *)data.philos[i].right_fork);
 		i++;
 	}
 	cleanup_data(&data);
