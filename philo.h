@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/26 19:39:09 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/27 00:48:08 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,15 @@ void					ft_man(void);
 size_t					ft_strlen(const char *s);
 int						ft_atoi(const char *str);
 int						is_pos(const char *s);
+
+
+/* Initialization Functions */
+int						init_mutexes(t_simulation *sim);
+int						init_philosophers(t_simulation *sim);
+int						init_simulation(t_simulation *sim);
+
+/* Cleanup Functions */
+void					cleanup_mutex(t_simulation *sim);
+void					cleanup_simulation(t_simulation *sim);
 
 #endif
