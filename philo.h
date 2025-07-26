@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/25 08:10:31 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:39:09 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,49 @@
 
 typedef struct s_config
 {
-	int				num_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				must_eat_count;
-	int				must_eat_flag;
-}					t_config;
+	int					num_philos;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					must_eat_count;
+	int					must_eat_flag;
+}						t_config;
+
+typedef struct s_philo
+{
+	int					id;
+	int					meals_eaten;
+	long				last_meal_time;
+	int					eating;
+	pthread_t			thread;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		meal_mutex;
+	struct s_simulation	*sim;
+}						t_philo;
+
+typedef struct s_simulation
+{
+	t_config			config;
+	t_philo				*philosophers;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		death_mutex;
+	pthread_mutex_t		meal_mutex;
+	long				start_time;
+	int					dead_flag;
+	int					finished_eating;
+	pthread_t			watcher_thread;
+}						t_simulation;
 
 /* Parsing Functions */
-int					ft_parse(int argc, char **argv, t_config *config);
-void				ft_usage(char *prog_name);
+int						ft_parse(int argc, char **argv, t_config *config);
+void					ft_man(void);
+
+
+/* Utility Functions */
+size_t					ft_strlen(const char *s);
+int						ft_atoi(const char *str);
+int						is_pos(const char *s);
 
 #endif
