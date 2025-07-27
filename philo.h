@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/27 00:48:08 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/27 15:01:11 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,29 @@ typedef struct s_config
 
 typedef struct s_philo
 {
-	int					id;
-	int					meals_eaten;
-	long				last_meal_time;
-	int					eating;
-	pthread_t			thread;
+	int					id; // thread id
+	long				last_meal_time; // timestamp 
+	int					eating; // threads activity status
+	pthread_t			thread; // philosopher thread
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		meal_mutex;
-	struct s_simulation	*sim;
+	pthread_mutex_t		meal_mutex; // private resource (meals eaten)
+	int					meals_eaten; // meals eaten counter
+	struct s_simulation	*sim; // shared resources 
 }						t_philo;
 
 typedef struct s_simulation
 {
-	t_config			config;
-	t_philo				*philosophers;
-	pthread_mutex_t		*forks;
-	pthread_mutex_t		print_mutex;
-	pthread_mutex_t		death_mutex;
-	pthread_mutex_t		meal_mutex;
-	long				start_time;
-	int					dead_flag;
-	int					finished_eating;
-	pthread_t			watcher_thread;
+	t_config			config; // rules
+	t_philo				*philosophers; // philos threads
+	pthread_mutex_t		*forks; // forks
+	pthread_mutex_t		print_mutex; // printing status
+	pthread_mutex_t		death_mutex; // death status lock
+	int					dead_flag; // death status
+	pthread_mutex_t		meal_mutex; // shared resource
+	int					finished_eating; // end of simulation
+	long				start_time; // simulation start time
+	pthread_t			watcher_thread; // watcher of all threads
 }						t_simulation;
 
 /* Parsing Functions */
