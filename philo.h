@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/29 09:51:08 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:51:34 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,9 @@ void					cleanup_simulation(t_simulation *sim);
 /* Time Management Function */
 long					current_time(void);
 void					ft_usleep(long ms);
+
+/* Routine Functions */
+void					*philosopher_routine(void *arg);
+void					*watcher_routine(void *arg);
 
 #endif
