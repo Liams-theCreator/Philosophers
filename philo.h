@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/27 15:01:11 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/29 09:25:38 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,39 @@ typedef struct s_config
 
 typedef struct s_philo
 {
-	int					id; // thread id
-	long				last_meal_time; // timestamp 
-	int					eating; // threads activity status
-	pthread_t			thread; // philosopher thread
+	int					id;
+	long				last_meal_time;
+	int					eating;
+	pthread_t			thread;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	pthread_mutex_t		meal_mutex; // private resource (meals eaten)
-	int					meals_eaten; // meals eaten counter
-	struct s_simulation	*sim; // shared resources 
+	pthread_mutex_t		meal_mutex;
+	int					meals_eaten;
+	struct s_simulation	*sim;
 }						t_philo;
 
 typedef struct s_simulation
 {
-	t_config			config; // rules
-	t_philo				*philosophers; // philos threads
-	pthread_mutex_t		*forks; // forks
-	pthread_mutex_t		print_mutex; // printing status
-	pthread_mutex_t		death_mutex; // death status lock
-	int					dead_flag; // death status
-	pthread_mutex_t		meal_mutex; // shared resource
-	int					finished_eating; // end of simulation
-	long				start_time; // simulation start time
-	pthread_t			watcher_thread; // watcher of all threads
+	t_config			config;
+	t_philo				*philosophers;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		death_mutex;
+	int					dead_flag;
+	pthread_mutex_t		meal_mutex;
+	int					finished_eating;
+	long				start_time;
+	pthread_t			watcher_thread;
 }						t_simulation;
 
 /* Parsing Functions */
 int						ft_parse(int argc, char **argv, t_config *config);
 void					ft_man(void);
 
-
 /* Utility Functions */
 size_t					ft_strlen(const char *s);
 int						ft_atoi(const char *str);
 int						is_pos(const char *s);
-
 
 /* Initialization Functions */
 int						init_mutexes(t_simulation *sim);

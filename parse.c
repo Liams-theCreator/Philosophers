@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:14:13 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/26 19:40:22 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/29 09:28:37 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_parse(int argc, char **argv, t_config *config)
 		return (1);
 	return (0);
 }
+
 void	ft_man(void)
 {
 	printf("Usage: `num_philos` `time_to_die` `time_to_eat` "

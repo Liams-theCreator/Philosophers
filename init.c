@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:35:25 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/27 00:49:35 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/29 09:27:28 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ int	init_mutexes(t_simulation *sim)
 	sim->forks = malloc(sizeof(pthread_mutex_t) * sim->config.num_philos);
 	if (!sim->forks)
 		return (1);
-    i = 0;
+	i = 0;
 	while (i < sim->config.num_philos)
 	{
 		if (pthread_mutex_init(&sim->forks[i], NULL) != 0)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&sim->forks[i]);
-			free(sim->forks);
-			return (1);
+			return (free(sim->forks), 1);
 		}
 		i++;
 	}
@@ -44,7 +43,7 @@ int	init_philosophers(t_simulation *sim)
 {
 	int	i;
 
-	sim->philosophers = malloc(sizeof(t_philo) * sim->config.num_philos);  // ← Fixed!
+	sim->philosophers = malloc(sizeof(t_philo) * sim->config.num_philos);
 	if (!sim->philosophers)
 		return (1);
 	i = 0;
@@ -56,13 +55,13 @@ int	init_philosophers(t_simulation *sim)
 		sim->philosophers[i].eating = 0;
 		sim->philosophers[i].sim = sim;
 		sim->philosophers[i].left_fork = &sim->forks[i];
-		sim->philosophers[i].right_fork = &sim->forks[(i + 1) % sim->config.num_philos];
+		sim->philosophers[i].right_fork = &sim->forks[(i + 1)
+			% sim->config.num_philos];
 		if (pthread_mutex_init(&sim->philosophers[i].meal_mutex, NULL) != 0)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&sim->philosophers[i].meal_mutex);
-			free(sim->philosophers);
-			return (1);
+			return (free(sim->philosophers), 1);
 		}
 		i++;
 	}
@@ -71,11 +70,11 @@ int	init_philosophers(t_simulation *sim)
 
 int	init_simulation(t_simulation *sim)
 {
+	sim->philosophers = NULL;
+	sim->forks = NULL;
 	sim->start_time = 0;
 	sim->dead_flag = 0;
 	sim->finished_eating = 0;
-	sim->philosophers = NULL;
-	sim->forks = NULL;
 	if (init_mutexes(sim))
 		return (1);
 	if (init_philosophers(sim))
