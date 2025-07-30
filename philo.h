@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/30 15:09:44 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:24:30 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ long					current_time(void);
 void					ft_usleep(long ms);
 
 /* Routine Functions */
-void	*philosopher_routine(void *arg);
+void	*routine(void *arg);
+void	*watcher(void *arg);
 
 #endif
