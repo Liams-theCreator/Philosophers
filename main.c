@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:34:49 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/30 14:31:53 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:09:38 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	create_threads(t_simulation *sim)
 int	main(int argc, char **argv)
 {
 	t_simulation	sim;
+	int				i;
 
 	if (argc < 5 || argc > 6)
 		return (ft_man(), -1);

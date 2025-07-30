@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 00:44:59 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/30 15:05:56 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:09:42 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void thinking(t_philo *philo)
     printf("%d is thinking\n", philo->id);
 }
 
-void eating(t_philo *philo)
+void sitting(t_philo *philo)
 {
     printf("%d is eating\n", philo->id);
     ft_usleep(1000);
