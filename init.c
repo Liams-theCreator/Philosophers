@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:35:25 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/29 09:27:28 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:48:47 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_mutexes(t_simulation *sim)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&sim->forks[i]);
-			return (free(sim->forks), 1);
+			return (free(sim->forks),sim->forks = NULL, 1);
 		}
 		i++;
 	}
@@ -61,7 +61,7 @@ int	init_philosophers(t_simulation *sim)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&sim->philosophers[i].meal_mutex);
-			return (free(sim->philosophers), 1);
+			return (free(sim->philosophers),sim->philosophers = NULL, 1);
 		}
 		i++;
 	}
@@ -79,5 +79,8 @@ int	init_simulation(t_simulation *sim)
 		return (1);
 	if (init_philosophers(sim))
 		return (cleanup_mutex(sim), 1);
+	sim->start_time = current_time();
+	if (sim->start_time == -1)
+		return (cleanup_simulation(sim), 1);
 	return (0);
 }

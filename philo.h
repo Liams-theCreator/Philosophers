@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/30 17:24:30 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/31 22:09:17 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ long					current_time(void);
 void					ft_usleep(long ms);
 
 /* Routine Functions */
-void	*routine(void *arg);
-void	*watcher(void *arg);
+int						run_simulation(t_simulation *sim);
 
 #endif

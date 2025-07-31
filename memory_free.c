@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 00:17:32 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/29 09:28:07 by imellali         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:43:58 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,18 @@ void	cleanup_mutex(t_simulation *sim)
 
 void	cleanup_simulation(t_simulation *sim)
 {
+	int	i;
+
 	if (!sim)
 		return ;
 	if (sim->philosophers)
 	{
+		i = 0;
+		while (i < sim->config.num_philos)
+		{
+			pthread_mutex_destroy(&sim->philosophers[i].meal_mutex);
+			i++;
+		}
 		free(sim->philosophers);
 		sim->philosophers = NULL;
 	}
