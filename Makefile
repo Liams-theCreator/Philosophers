@@ -2,7 +2,8 @@ NAME	= philo
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -pthread
 SRC		= main.c parse.c utils.c init.c \
-		  memory_free.c time.c routine.c
+		  memory_free.c time.c routine.c \
+		  threads.c philo.c watcher.c
 OBJ		= $(SRC:.c=.o)
 
 all: $(NAME)

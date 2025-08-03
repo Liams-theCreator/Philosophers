@@ -26,7 +26,7 @@ int	init_mutexes(t_simulation *sim)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&sim->forks[i]);
-			return (free(sim->forks),sim->forks = NULL, 1);
+			return (free(sim->forks), sim->forks = NULL, 1);
 		}
 		i++;
 	}
@@ -61,7 +61,7 @@ int	init_philosophers(t_simulation *sim)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&sim->philosophers[i].meal_mutex);
-			return (free(sim->philosophers),sim->philosophers = NULL, 1);
+			return (free(sim->philosophers), sim->philosophers = NULL, 1);
 		}
 		i++;
 	}

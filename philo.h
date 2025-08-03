@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:13:53 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/31 22:09:17 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/03 17:01:52 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ typedef struct s_config
 typedef struct s_philo
 {
 	int					id;
-	long				last_meal_time;
-	int					eating;
 	pthread_t			thread;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		meal_mutex;
 	int					meals_eaten;
+	long				last_meal_time;
+	int					eating;
 	struct s_simulation	*sim;
 }						t_philo;
 
@@ -81,6 +81,26 @@ long					current_time(void);
 void					ft_usleep(long ms);
 
 /* Routine Functions */
+int						start_simulation(t_simulation *sim);
 int						run_simulation(t_simulation *sim);
+void					*philosopher_routine(void *arg);
+void					*single_philo_routine(void *arg);
+void					*watcher_routine(void *arg);
+int						join_threads(t_simulation *sim);
+
+/* Status Functions */
+void					print_status(t_philo *philo, char *status);
+void					get_status(t_philo *philo, long *current,
+							long *last_meal, int *eating);
+int						check_death(t_philo *philo);
+int						check_meal_completion(t_simulation *sim);
+int						is_simulation_over(t_simulation *sim);
+int						all_eat(t_simulation *sim);
+
+/* Routine Management Functions */
+int						take_forks(t_philo *philo);
+void					drop_forks(t_philo *philo);
+void					eat(t_philo *philo);
+void					sleep_and_think(t_philo *philo);
 
 #endif
