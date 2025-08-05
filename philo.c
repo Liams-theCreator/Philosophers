@@ -53,6 +53,8 @@ void	*philosopher_routine(void *arg)
 			break ;
 		eat(philo);
 		drop_forks(philo);
+		if (philo->meals_eaten == philo->sim->config.must_eat_count)
+			return (NULL);
 		if (is_simulation_over(philo->sim))
 			break ;
 		sleep_and_think(philo);
