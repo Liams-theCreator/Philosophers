@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 16:39:34 by imellali          #+#    #+#             */
-/*   Updated: 2025/08/05 13:44:09 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/05 15:25:51 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,26 @@ int	check_death(t_philo *philo)
 	long	last_meal;
 	int		eating;
 
-	pthread_mutex_lock(&philo->sim->death_mutex);
-	if (!philo->sim->dead_flag)
+	get_status(philo, &current, &last_meal, &eating);
+	if (!eating && (current - last_meal) >= philo->sim->config.time_to_die)
 	{
-		get_status(philo, &current, &last_meal, &eating);
-		if (!eating && (current - last_meal) >= philo->sim->config.time_to_die)
+		pthread_mutex_lock(&philo->sim->death_mutex);
+		if (!philo->sim->dead_flag)
 		{
-			philo->sim->dead_flag = 1;
-			long timestamp = current_time() - philo->sim->start_time;
-			pthread_mutex_unlock(&philo->sim->death_mutex);
-			pthread_mutex_lock(&philo->sim->print_mutex);
-			printf("%ld %d died\n", timestamp, philo->id);
-			pthread_mutex_unlock(&philo->sim->print_mutex);
-			return (1);
+			get_status(philo, &current, &last_meal, &eating);
+			if (!eating && (current
+					- last_meal) >= philo->sim->config.time_to_die)
+			{
+				philo->sim->dead_flag = 1;
+				pthread_mutex_unlock(&philo->sim->death_mutex);
+				current = current_time() - philo->sim->start_time;
+				pthread_mutex_lock(&philo->sim->print_mutex);
+				printf("%ld %d died\n", current, philo->id);
+				return (pthread_mutex_unlock(&philo->sim->print_mutex), 1);
+			}
 		}
+		pthread_mutex_unlock(&philo->sim->death_mutex);
 	}
-	pthread_mutex_unlock(&philo->sim->death_mutex);
 	return (0);
 }
 
@@ -88,32 +92,27 @@ int	check_meal_completion(t_simulation *sim)
 	return (0);
 }
 
-void *watcher_routine(void *arg)
+void	*watcher_routine(void *arg)
 {
-    t_simulation *sim;
-	long last_meal;
-	long current;
-    int eating;
-	int	i;
+	t_simulation	*sim;
+	int				i;
 
 	sim = (t_simulation *)arg;
-    while (1)
+	if (sim->config.num_philos == 1)
+		return (NULL);
+	ft_usleep(10);
+	while (!is_simulation_over(sim))
 	{
 		i = 0;
-        while (i < sim->config.num_philos)
+		while (i < sim->config.num_philos && !is_simulation_over(sim))
 		{
-            pthread_mutex_lock(&sim->philosophers[i].meal_mutex);
-            last_meal = sim->philosophers[i].last_meal_time;
-            eating = sim->philosophers[i].eating;
-            pthread_mutex_unlock(&sim->philosophers[i].meal_mutex);
-            current = current_time();
-            if (!eating && current - last_meal >= sim->config.time_to_die)
-			{
-                check_death(&sim->philosophers[i]);
-				return NULL;
-            }
+			if (check_death(&sim->philosophers[i]))
+				return (NULL);
 			i++;
-        }
-        ft_usleep(1);
-    }
+		}
+		if (sim->config.must_eat_flag && check_meal_completion(sim))
+			return (NULL);
+		ft_usleep(1);
+	}
+	return (NULL);
 }

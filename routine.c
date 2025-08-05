@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 00:44:59 by imellali          #+#    #+#             */
-/*   Updated: 2025/08/05 13:46:18 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/05 15:20:23 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,14 @@ void	print_status(t_philo *philo, char *status)
 
 int	take_forks(t_philo *philo)
 {
-	//if (is_simulation_over(philo->sim))
-		//return (1);
-	if (philo->sim->config.num_philos % 2 && philo->meals_eaten > 1)
-		ft_usleep(50);
+	if (is_simulation_over(philo->sim))
+		return (1);
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
 		print_status(philo, "has taken a fork");
-		//if (is_simulation_over(philo->sim))
-			//return (pthread_mutex_unlock(philo->right_fork), 1);
+		if (is_simulation_over(philo->sim))
+			return (pthread_mutex_unlock(philo->right_fork), 1);
 		pthread_mutex_lock(philo->left_fork);
 		print_status(philo, "has taken a fork");
 	}
@@ -49,8 +47,8 @@ int	take_forks(t_philo *philo)
 	{
 		pthread_mutex_lock(philo->left_fork);
 		print_status(philo, "has taken a fork");
-		//if (is_simulation_over(philo->sim))
-			//return (pthread_mutex_unlock(philo->left_fork), 1);
+		if (is_simulation_over(philo->sim))
+			return (pthread_mutex_unlock(philo->left_fork), 1);
 		pthread_mutex_lock(philo->right_fork);
 		print_status(philo, "has taken a fork");
 	}
