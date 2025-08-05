@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 16:39:34 by imellali          #+#    #+#             */
-/*   Updated: 2025/08/05 15:25:51 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/05 22:50:10 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	check_death(t_philo *philo)
 	int		eating;
 
 	get_status(philo, &current, &last_meal, &eating);
-	if (!eating && (current - last_meal) >= philo->sim->config.time_to_die)
+	if (!eating && (current - last_meal) >= philo->sim->config.time_to_die + 2)
 	{
 		pthread_mutex_lock(&philo->sim->death_mutex);
 		if (!philo->sim->dead_flag)
 		{
 			get_status(philo, &current, &last_meal, &eating);
 			if (!eating && (current
-					- last_meal) >= philo->sim->config.time_to_die)
+					- last_meal) >= philo->sim->config.time_to_die + 2)
 			{
 				philo->sim->dead_flag = 1;
 				pthread_mutex_unlock(&philo->sim->death_mutex);
