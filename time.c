@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 09:40:52 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/31 00:55:27 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:44:19 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ long	current_time(void)
 void	ft_usleep(long ms)
 {
 	long	start;
-	long	current;
+	//long	current;
 
 	if (ms <= 0)
 		return ;
 	start = current_time();
-	while (1)
+	while (current_time() - start < ms)
 	{
-		current = current_time();
-		if (current - start >= ms)
-			break ;
+		//current = current_time();
+		//if (current - start >= ms)
+		//	break ;
 		usleep(100);
 	}
 }

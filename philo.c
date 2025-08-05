@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 16:42:45 by imellali          #+#    #+#             */
-/*   Updated: 2025/08/03 16:56:08 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:46:28 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,26 @@ void	*philosopher_routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->sim->config.num_philos == 1)
 		return (single_philo_routine(arg));
-	pthread_mutex_lock(&philo->meal_mutex);
-	philo->last_meal_time = philo->sim->start_time;
-	pthread_mutex_unlock(&philo->meal_mutex);
+	//pthread_mutex_lock(&philo->meal_mutex);
+	//philo->last_meal_time = philo->sim->start_time;
+	//pthread_mutex_unlock(&philo->meal_mutex);
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->sim->config.time_to_eat / 2);
-	while (!is_simulation_over(philo->sim))
+		ft_usleep(1);
+	while (1)
 	{
+		pthread_mutex_lock(&philo->sim->death_mutex);
+		if (philo->sim->dead_flag == 1)
+		{
+			pthread_mutex_unlock(&philo->sim->death_mutex);
+			break;
+		}
+		pthread_mutex_unlock(&philo->sim->death_mutex);
 		if (take_forks(philo))
 			break ;
 		eat(philo);
 		drop_forks(philo);
-		if (is_simulation_over(philo->sim))
-			break ;
+		//if (is_simulation_over(philo->sim))
+		//	break ;
 		sleep_and_think(philo);
 		if (philo->sim->config.num_philos > 2)
 			ft_usleep(1);

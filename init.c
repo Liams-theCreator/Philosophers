@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:35:25 by imellali          #+#    #+#             */
-/*   Updated: 2025/07/31 21:48:47 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:46:46 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	init_philosophers(t_simulation *sim)
 	{
 		sim->philosophers[i].id = i + 1;
 		sim->philosophers[i].meals_eaten = 0;
-		sim->philosophers[i].last_meal_time = 0;
+		//sim->philosophers[i].last_meal_time = 0;
 		sim->philosophers[i].eating = 0;
 		sim->philosophers[i].sim = sim;
 		sim->philosophers[i].left_fork = &sim->forks[i];
@@ -82,5 +82,13 @@ int	init_simulation(t_simulation *sim)
 	sim->start_time = current_time();
 	if (sim->start_time == -1)
 		return (cleanup_simulation(sim), 1);
+	int i = 0;		
+	while (i < sim->config.num_philos)
+	{
+		pthread_mutex_lock(&sim->philosophers->meal_mutex);
+		sim->philosophers[i].last_meal_time = sim->start_time;
+		pthread_mutex_unlock(&sim->philosophers->meal_mutex);
+		i++;
+	}
 	return (0);
 }
