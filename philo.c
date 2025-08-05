@@ -6,7 +6,7 @@
 /*   By: imellali <imellali@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 16:42:45 by imellali          #+#    #+#             */
-/*   Updated: 2025/08/05 13:46:28 by imellali         ###   ########.fr       */
+/*   Updated: 2025/08/05 15:08:34 by imellali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ void	*philosopher_routine(void *arg)
 			break ;
 		eat(philo);
 		drop_forks(philo);
-		//if (is_simulation_over(philo->sim))
-		//	break ;
+		if (philo->meals_eaten == philo->sim->config.must_eat_count)
+			return (NULL);
+		if (is_simulation_over(philo->sim))
+			break ;
 		sleep_and_think(philo);
 		if (philo->sim->config.num_philos > 2)
 			ft_usleep(1);
